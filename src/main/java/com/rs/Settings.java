@@ -70,8 +70,8 @@ public final class Settings {
 		lobbyIp = "dev.darkan.org";
 		mongoUrl = "localhost";
 		mongoPort = 27017;
-		mongoUser = "";
-		mongoPass = "";
+		mongoUser = "root";
+		mongoPass = "rspsmongo";
 		mongoDbName = "darkan-server";
 		lobbyApiKey = "TEST_API_KEY";
 		worldInfo = new WorldInfo(3, "127.0.0.1", 43595, "My Test World", 1, true, true);
@@ -126,6 +126,7 @@ public final class Settings {
 				if (f.get(SETTINGS) == null)
 					f.set(SETTINGS, f.get(DEFAULTS));
 			JsonFileManager.saveJsonFile(SETTINGS, configFile);
+
 		} catch (JsonIOException | IOException | IllegalArgumentException | IllegalAccessException e1) {
 			e1.printStackTrace();
 			System.exit(5);
@@ -221,13 +222,14 @@ public final class Settings {
 	}
 
 	public String getMongoDb() {
-		String db = "mongodb://";
+		String db = "mongodb+srv://";
 		if (mongoUser != null && !mongoUser.isEmpty())
 			db += mongoUser + ":" + new PercentEscaper("", false).escape(mongoPass) + "@";
 		db += mongoUrl;
 		if (mongoPort > 0)
 			db += ":" + mongoPort;
 		db += "/"+mongoDbName+"?retryWrites=true&w=majority";
+		Logger.log("URL", db);
 		return db;
 	}
 }

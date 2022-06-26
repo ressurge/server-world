@@ -36,6 +36,7 @@ public class LobbyCommunicator {
 
 	public static void addWorldPlayer(Player player, Consumer<Boolean> cb) {
 		post(Boolean.class, new WorldPlayerAction(player.getAccount(), Settings.getConfig().getWorldInfo()), "addworldplayer", cb);
+		//dev.darkan.org/api/addworldplayer
 	}
 
 	public static void removeWorldPlayer(Player player) {
